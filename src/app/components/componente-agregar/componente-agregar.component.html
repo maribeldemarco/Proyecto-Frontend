@@ -1,0 +1,44 @@
+<div class="container">
+    <form [formGroup]="miFormulario" (ngSubmit)="enviar()">
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre </label>
+            <input type="text" class="form-control" id="nombre" formControlName="Nombre">
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" formControlName="Stock">
+             
+        </div>
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" class="form-control" id="marca" formControlName="Marca">
+             
+        </div>
+        <div class="mb-3">
+            <label for="perece "class="form-label">Perece</label>
+            <input type="number" class="form-control" id="perece" formControlName="Perece">
+             
+        </div>
+     
+      <!-- Campo para CategoriaSubcategoriaID -->
+<div class="mb-3">
+    <label for="CategoriaSubcategoriaID" class="form-label">Categoria Subcategoria ID</label>
+    <input type="number" class="form-control" id="CategoriaSubcategoriaID" formControlName="CategoriaSubcategoriaID">
+  </div>
+  
+  <!-- Campo para Fecha_Vencimiento -->
+  <div class="mb-3">
+    <label for="Fecha_Vencimiento" class="form-label">Fecha de Vencimiento</label>
+    <input type="date" class="form-control" id="Fecha_Vencimiento" formControlName="Fecha_Vencimiento">
+  </div>
+  <!-- Campo para Proveedor -->
+<div class="mb-3">
+    <label for="Proveedor" class="form-label">Proveedor</label>
+    <input type="number" class="form-control" id="Proveedor" formControlName="ProveedorID">
+  </div>
+  
+       
+        <button type="submit" class="btn btn-primary">Enviar datos</button>
+    </form>
+</div>
