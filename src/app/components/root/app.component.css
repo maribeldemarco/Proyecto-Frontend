@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav {
+  justify-content: end;
+}
+
+#logo {
+  height: 5rem;
+  margin: 1%;
+}
+
+#name, #navbarNav {
+  font-size: 2rem;
+  font-family: 'Finger Paint';
+}
+
+#name {
+  font-size: 3rem;
+}
+
+.nav-link {
+  width: max-content;
+  text-wrap: nowrap;
+  padding: 2%;
+  margin: 2%;
+  align-content: center;
+}
+
+router-outlet {
+  display: block;
+  width: 100%;
+  min-height: 88vh;
+  background-color: blue;
+}
