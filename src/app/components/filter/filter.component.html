@@ -1,0 +1,21 @@
+<div id="container">
+  <button (click)="cargar()">Recargar opciones</button>
+  <div id="selects">
+    <select [(ngModel)]="categoriaElegida">
+      @for (categoria of categorias; track $index) {
+      <option [value]="categoria.Nombre">{{ categoria.Nombre }}</option>
+      }
+    </select>
+    <select [(ngModel)]="subcategoriaElegida">
+      @for (subcategoria of subcategorias; track $index) {
+      <option [value]="subcategoria.Nombre">{{ subcategoria.Nombre }}</option>
+      }
+    </select>
+    <select [(ngModel)]="proveedorElegido">
+      @for (proveedor of proveedores; track $index) {
+      <option [value]="proveedor.Nombre">{{ proveedor.Nombre }}</option>
+      }
+    </select>
+  </div>
+  <button (click)="mostrarSelect()">Mostrar seleccionado (por alert)</button>
+</div>

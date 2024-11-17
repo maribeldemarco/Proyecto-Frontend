@@ -1,0 +1,19 @@
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#selects {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: blueviolet;
+  padding: .5% 2%;
+}
+
+select, button {
+  margin: 1%;
+}
