@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
-import { FilterComponent } from "../filter/filter.component";
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-root',

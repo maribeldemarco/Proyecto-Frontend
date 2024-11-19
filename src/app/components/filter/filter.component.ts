@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css',
 })
+
 export class FilterComponent implements OnInit {
   categorias: any;
   subcategorias: any;
@@ -17,6 +18,8 @@ export class FilterComponent implements OnInit {
   categoriaElegida = '';
   subcategoriaElegida = '';
   proveedorElegido = '';
+
+  @Output() filtrosElegidos = new EventEmitter<string[]>();
 
   constructor(private _api: GetAuxService) {}
 
@@ -70,5 +73,9 @@ export class FilterComponent implements OnInit {
       Subcategoria elegida: ${this.subcategoriaElegida}\n
       Proveedor elegido: ${this.proveedorElegido}
     `);
+  }
+
+  madarFiltros() {
+    this.filtrosElegidos.emit([this.categoriaElegida, this.subcategoriaElegida, this.proveedorElegido])
   }
 }
