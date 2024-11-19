@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 
@@ -10,7 +10,7 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './actualizar.component.css'
 })
 export class ActualizarComponent {
-
+  @Output() cerrarFormulario = new EventEmitter<void>();
   miFormulario: FormGroup;
 
   constructor(private _fb: FormBuilder, private _apiService: ApiService) {
@@ -46,5 +46,9 @@ export class ActualizarComponent {
       } else {
        alert('Formulario inválido. Por favor, complete todos los campos.');
       }
-    }
+  } 
+  cancelar() {
+    // Emite un evento para cerrar el formulario
+    this.cerrarFormulario.emit();
+  }
 }
