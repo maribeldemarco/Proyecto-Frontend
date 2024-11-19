@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>Actualizar producto</h2>
+
+    <form [formGroup]="miFormulario" (ngSubmit)="actualizar()">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" class="form-control" id="id" formControlName="id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="Nombre">
+            </div>
+            <div class="form-group">
+                <label for="marca" class="form-label">Marca</label>
+                <input type="text" class="form-control" id="marca" formControlName="Marca">
+            </div>
+            <div class="form-group">
+                <label for="stock" class="form-label">Stock</label>
+                <input type="number" class="form-control" id="stock" formControlName="Stock">
+            </div>
+            <div class="form-group">
+                <label for="perece" class="form-label">Perece</label>
+                <input type="number" class="form-control" id="perece" formControlName="Perece">
+            </div>
+            <div class="form-group">
+                <label for="categoriaSubcategoriaID" class="form-label">Categoria Subcategoria ID</label>
+                <input type="number" class="form-control" id="categoriaSubcategoriaID" formControlName="CategoriaSubcategoriaID">
+            </div>
+            <div class="form-group">
+                <label for="fecha_Vencimiento" class="form-label">Fecha de Vencimiento</label>
+                <input type="date" class="form-control" id="fecha_Vencimiento" formControlName="Fecha_Vencimiento">
+            </div>
+            <div class="form-group">
+                <label for="proveedor" class="form-label">Proveedor</label>
+                <input type="number" class="form-control" id="proveedor" formControlName="ProveedorID">
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn btn-secondary">Actualizar</button>
+        </div>
+    </form>
+</div>
