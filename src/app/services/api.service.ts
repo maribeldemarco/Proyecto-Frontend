@@ -14,4 +14,8 @@ import { IProducto } from '../models/producto.model';
     public getProducts():Observable<IProducto[]> {
         return this._http.get<IProducto[]>(this.url);
     }
+
+    deleteProduct(productId: number): Observable<void> {
+      return this._http.delete<void>(`${this.url}/${productId}`);
+    }
 }

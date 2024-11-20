@@ -26,7 +26,7 @@ export class AppComponent {
   getRouterLink(nav: string): string {
     switch (nav) {
       case 'Inventario':
-        return '/tabla-principal';
+        return '/main-table';
       case 'Agregar producto':
         return '/agregar-producto';
       default:
