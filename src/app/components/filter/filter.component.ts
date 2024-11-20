@@ -67,14 +67,6 @@ export class FilterComponent implements OnInit {
     );
   }
 
-  mostrarSelect() {
-    alert(`
-      Categoria elegida: ${this.filtrosElegidos.categoria}\n
-      Subcategoria elegida: ${this.filtrosElegidos.subcategoria}\n
-      Proveedor elegido: ${this.filtrosElegidos.proveedor}
-    `);
-  }
-
   mostrarProductos() {
     let filtersType = [];
     let filters = [];
@@ -92,7 +84,7 @@ export class FilterComponent implements OnInit {
     }
     let filterType = filtersType.join('Y');
     if (filters.length > 0) {
-      filterType += + '/';
+      filterType += '/';
     }
     this._api.getProductosByFilters(filterType, filters).subscribe({
       next: (data) => {
