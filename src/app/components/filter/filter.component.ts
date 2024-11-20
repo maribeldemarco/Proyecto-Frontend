@@ -15,11 +15,11 @@ export class FilterComponent implements OnInit {
   subcategorias: any;
   proveedores: any;
 
-  categoriaElegida = '';
-  subcategoriaElegida = '';
-  proveedorElegido = '';
-
-  @Output() filtrosElegidos = new EventEmitter<string[]>();
+  filtrosElegidos = {
+    categoria: '',
+    subcategoria: '',
+    proveedor: '',
+  }
 
   constructor(private _api: GetAuxService) {}
 
@@ -69,13 +69,35 @@ export class FilterComponent implements OnInit {
 
   mostrarSelect() {
     alert(`
-      Categoria elegida: ${this.categoriaElegida}\n
-      Subcategoria elegida: ${this.subcategoriaElegida}\n
-      Proveedor elegido: ${this.proveedorElegido}
+      Categoria elegida: ${this.filtrosElegidos.categoria}\n
+      Subcategoria elegida: ${this.filtrosElegidos.subcategoria}\n
+      Proveedor elegido: ${this.filtrosElegidos.proveedor}
     `);
   }
 
-  madarFiltros() {
-    this.filtrosElegidos.emit([this.categoriaElegida, this.subcategoriaElegida, this.proveedorElegido])
+  mostrarProductos() {
+    let filtersType = [];
+    let filters = [];
+    if (this.filtrosElegidos.categoria) {
+      filtersType.push('categoria')
+      filters.push(this.filtrosElegidos.categoria);
+    }
+    if (this.filtrosElegidos.subcategoria) {
+      filtersType.push('subcategoria')
+      filters.push(this.filtrosElegidos.subcategoria);
+    }
+    if (this.filtrosElegidos.proveedor) {
+      filtersType.push('proveedor')
+      filters.push(this.filtrosElegidos.proveedor);
+    }
+    let filterType = filtersType.join('Y');
+    if (filters.length > 0) {
+      filterType += + '/';
+    }
+    this._api.getProductosByFilters(filterType, filters).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    })
   }
 }
