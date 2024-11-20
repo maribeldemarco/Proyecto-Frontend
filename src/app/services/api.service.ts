@@ -8,7 +8,7 @@ import { Producto } from '../models/actualizar.model';
     providedIn: 'root'
   })
   export class ApiService {
-    private url = 'http://localhost:3000/api/productos'
+    private url = 'http://localhost:3000/productos'
   
     constructor(private _http:HttpClient) { }
   
