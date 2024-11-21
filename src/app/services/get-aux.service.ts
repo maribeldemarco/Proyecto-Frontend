@@ -30,9 +30,4 @@ export class GetAuxService {
   public getProductosByFilters(type: string, filters: string[]) {
     return this._http.get(`${this.url}/productos/${type}${filters.join('/')}`);
   }
-
-  public test() {
-    console.log(AppComponent.arguments);
-    console.log(typeof AppComponent);
-  }
 }
