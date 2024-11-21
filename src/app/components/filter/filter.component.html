@@ -1,6 +1,6 @@
 <div id="container">
   <button (click)="cargar()">Recargar opciones</button>
-  <div id="selects">
+  <div id="selects" (change)="mostrarProductos()">
     <select [(ngModel)]="filtrosElegidos.categoria">
       <option [value]=""></option>
       @for (categoria of categorias; track $index) {
@@ -22,3 +22,5 @@
   </div>
   <button (click)="mostrarProductos()">Mostrar productos (por consola)</button>
 </div>
+
+<!-- <app-invetario [productos]="productos"></app-invetario> -->

@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css',
 })
-
 export class FilterComponent implements OnInit {
   categorias: any;
   subcategorias: any;
@@ -19,7 +18,9 @@ export class FilterComponent implements OnInit {
     categoria: '',
     subcategoria: '',
     proveedor: '',
-  }
+  };
+
+  productos: any;
 
   constructor(private _api: GetAuxService) {}
 
@@ -62,24 +63,23 @@ export class FilterComponent implements OnInit {
 
   async cargar() {
     this.cargarCategorias().then(() =>
-      this.cargarSubcategorias().then(() =>
-        this.cargarProveedores())
+      this.cargarSubcategorias().then(() => this.cargarProveedores())
     );
   }
 
   mostrarProductos() {
-    let filtersType = [];
     let filters = [];
+    let filtersType = [];
     if (this.filtrosElegidos.categoria) {
-      filtersType.push('categoria')
+      filtersType.push('categoria');
       filters.push(this.filtrosElegidos.categoria);
     }
     if (this.filtrosElegidos.subcategoria) {
-      filtersType.push('subcategoria')
+      filtersType.push('subcategoria');
       filters.push(this.filtrosElegidos.subcategoria);
     }
     if (this.filtrosElegidos.proveedor) {
-      filtersType.push('proveedor')
+      filtersType.push('proveedor');
       filters.push(this.filtrosElegidos.proveedor);
     }
     let filterType = filtersType.join('Y');
@@ -88,8 +88,9 @@ export class FilterComponent implements OnInit {
     }
     this._api.getProductosByFilters(filterType, filters).subscribe({
       next: (data) => {
+        this.productos = data;
         console.log(data);
-      },
-    })
+      }
+    });
   }
 }
