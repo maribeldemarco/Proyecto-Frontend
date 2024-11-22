@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
@@ -10,7 +10,21 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  navs = ['Inicio', 'Inventario', 'Agregar producto'];
+  navs = [
+    {
+      "nombre": "Inicio",
+      "ruta": "home"
+    },
+    {
+      "nombre": "Inventario",
+      "ruta": "inventario"
+    },
+    {
+      "nombre": "Agregar producto",
+      "ruta": "agregar-producto"
+    }
+  ];
+
   select(e: any) {
     let active = e.currentTarget.getAttribute('id');
     let navs = document.querySelectorAll('.nav-link');
@@ -21,16 +35,5 @@ export class AppComponent {
         element.classList.remove('active');
       }
     });
-  }
-
-  getRouterLink(nav: string): string {
-    switch (nav) {
-      case 'Inventario':
-        return '/main-table';
-      case 'Agregar producto':
-        return '/agregar-producto';
-      default:
-        return '/';
-    }
   }
 }
