@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DeleteProductComponent } from '../delete-product/delete-product.component';
 import { ApiService } from '../../services/api.service';
+import { ActualizarComponent } from '../actualizar/actualizar.component';
 
 @Component({
   selector: 'app-main-table',
   standalone: true,
-  imports: [CommonModule, RouterLink, DeleteProductComponent],
+  imports: [CommonModule, RouterLink, DeleteProductComponent, ActualizarComponent],
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.css'],
 })
@@ -17,7 +18,8 @@ export class MainTableComponent implements OnInit {
   
   productos: any[] = [];
   selectedProductId!: number | null;
-
+  mostrarActualizar = true;
+  productoAEditar: any;
   constructor(private apiService: ApiService){}
   
   ngOnInit(): void {
@@ -42,4 +44,14 @@ export class MainTableComponent implements OnInit {
     console.log('Eliminación cancelada');
     this.selectedProductId = null;
   }
+
+  
+
+  ocultarActualizar() {
+   this.mostrarActualizar = !this.mostrarActualizar
+  }
+
+  EditarProducto(producto: any) {
+    this.productoAEditar = producto;
+}
 }
