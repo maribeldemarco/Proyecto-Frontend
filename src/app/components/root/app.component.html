@@ -20,17 +20,16 @@
       <div class="navbar-nav nav-pills">
         @for (nav of navs; track $index) {
         <a
-          id="{{ nav }}"
+          id="{{ nav.nombre }}"
           class="nav-link"
           [class]="$index == 0 ? 'active' : ''"
-          [routerLink]="['']"
+          [routerLink]="[nav.ruta]"
           (click)="select($event)"
-          >{{ navs[$index] }}</a
+          >{{ navs[$index].nombre }}</a
         >
         }
       </div>
     </div>
   </div>
 </nav>
-<app-filter></app-filter>
 <router-outlet />
