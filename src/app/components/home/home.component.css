@@ -1,0 +1,36 @@
+.space {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  background-color: white;
+  background-image: url(../../../../public/fondo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#imagenPrincipal {
+  width: 50%;
+  margin-bottom: 1%;
+}
+
+.titulo {
+  font-size: 5.5rem;
+  font-family: 'Finger Paint';
+}
+
+.presentacion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff4c;
+  padding: 1%;
+  border-radius: 12.5px;
+}
+
+.descripcion {
+  font-size: 2rem;
+}
