@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 @Component({
@@ -28,6 +28,12 @@ export class AppComponent {
       "ruta": "editar-producto"
     }
   ];
+
+  constructor(private router: Router) { }
+
+  getRoute() {
+    return this.router.url.replace('/', '');
+  }
 
   select(e: any) {
     let active = e.currentTarget.getAttribute('id');
