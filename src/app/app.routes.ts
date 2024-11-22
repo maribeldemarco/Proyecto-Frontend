@@ -5,7 +5,7 @@ import { ActualizarComponent } from './components/actualizar/actualizar.componen
 import { ComponenteAgregarComponent } from './components/componente-agregar/componente-agregar.component';
 
 export const routes: Routes = [
-  {path:'agregarproducto', component:ComponenteAgregarComponent},
+  { path: 'agregar-producto', component:ComponenteAgregarComponent},
   { path: 'home', component: HomeComponent },
   { path: 'inventario',component: FilterComponent},
   { path: 'editar-producto',component: ActualizarComponent },
