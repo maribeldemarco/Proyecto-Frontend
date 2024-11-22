@@ -5,7 +5,7 @@
         <div class="form-grid">
             <div class="form-group">
                 <label for="id" class="form-label">ID</label>
-                <input type="number" class="form-control" id="id" formControlName="id" readonly>
+                <input type="number" class="form-control" id="id" formControlName="id" (blur)="cargarProducto(miFormulario.get('id')?.value)">
             </div>
             <div class="form-group">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -20,20 +20,38 @@
                 <input type="number" class="form-control" id="stock" formControlName="Stock">
             </div>
             <div class="form-group">
-                <label for="perece" class="form-label">Perece</label>
-                <input type="number" class="form-control" id="perece" formControlName="Perece">
-            </div>
-            <div class="form-group">
                 <label for="categoriaSubcategoriaID" class="form-label">Categoria Subcategoria ID</label>
                 <input type="number" class="form-control" id="categoriaSubcategoriaID" formControlName="CategoriaSubcategoriaID">
             </div>
+            <div>
+                <label for="proveedor">Proveedor</label>
+                <select id="proveedor" formControlName="ProveedorID" class="form-select">
+                    <option value="" disabled selected>Seleccione un proveedor</option>
+                    <option *ngFor="let proveedor of proveedores" [value]="proveedor.ProveedorID">
+                        {{ proveedor.Nombre }}
+                    </option>
+                </select>
+            </div>            
+            
             <div class="form-group">
-                <label for="fecha_Vencimiento" class="form-label">Fecha de Vencimiento</label>
-                <input type="date" class="form-control" id="fecha_Vencimiento" formControlName="Fecha_Vencimiento">
+                <label for="perece" class="form-check-label">¿Perece?</label>
+                <div class="form-check">
+                    <input 
+                        type="checkbox" 
+                        class="form-check-input" 
+                        id="perece" 
+                        formControlName="Perece"
+                        [checked]="miFormulario.get('Perece')?.value == 1"
+                    />
+                </div>
             </div>
-            <div class="form-group">
-                <label for="proveedor" class="form-label">Proveedor</label>
-                <input type="number" class="form-control" id="proveedor" formControlName="ProveedorID">
+            <div class="form-group" *ngIf="miFormulario.get('Perece')?.value == 1">
+                <label for="fecha_Vencimiento" class="form-label">Fecha de Vencimiento</label>
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    id="fecha_Vencimiento" 
+                    formControlName="Fecha_Vencimiento">
             </div>
         </div>
         <div class="button-container">

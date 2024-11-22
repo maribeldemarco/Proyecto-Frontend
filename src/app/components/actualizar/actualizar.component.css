@@ -74,3 +74,22 @@ input[readonly] {
     color:#666;
     cursor: not-allowed;  
 }
+
+input[type="checkbox"] {
+    width: 100%;
+}
+
+select{
+    padding: 4px;
+    width: 100%;
+    
+}
+
+.form-group.checkbox-group {
+    grid-column: span 1; /* Ajusta el checkbox para ocupar una sola columna pequeña */
+    width: auto; /* Permite que el ancho se ajuste al contenido */
+}
+input[type="checkbox"] {
+    width: auto; /* Asegura que el checkbox tenga un tamaño compacto */
+    margin: auto; /* Centra el checkbox dentro del contenedor */
+}
