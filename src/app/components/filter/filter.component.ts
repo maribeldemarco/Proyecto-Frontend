@@ -68,6 +68,8 @@ export class FilterComponent implements OnInit {
   async cargar() {
     this.cargarCategorias().then(() =>
       this.cargarSubcategorias().then(() => this.cargarProveedores())
+      this.cargarSubcategorias().then(() =>
+        this.cargarProveedores())
     );
   }
 
@@ -109,6 +111,6 @@ export class FilterComponent implements OnInit {
       this.mostrarProductos();
       this.icono = 'fas fa-solid fa-eraser';
       this.resetBtnDisabled = false;
-    }, 3000);
+    }, 2000);
   }
 }

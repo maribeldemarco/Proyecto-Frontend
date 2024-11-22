@@ -34,7 +34,6 @@ export class AppComponent {
   getRoute() {
     return this.router.url.replace('/', '');
   }
-
   select(e: any) {
     let active = e.currentTarget.getAttribute('id');
     let navs = document.querySelectorAll('.nav-link');

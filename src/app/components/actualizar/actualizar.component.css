@@ -9,6 +9,7 @@
     align-items: center;
 }
 
+
 h2 {
     color: #333;
     margin: 1%;
@@ -24,7 +25,6 @@ input {
     border: 1px solid #5a9;
     border-radius: 4px;
     font-size: 12px;
-
 }
 
 input[type="date"] {
@@ -86,7 +86,6 @@ input[type="checkbox"] {
 select{
     padding: 4px;
     width: 100%;
-
 }
 
 .form-group.checkbox-group {
