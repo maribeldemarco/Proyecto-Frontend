@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ActualizarComponent {
   @Output() cerrarFormulario = new EventEmitter<void>();
-  @Input() productoAEditar: any; //cuando llegue el de Guada
+  @Input() productoAEditar: any;
   miFormulario: FormGroup;
   proveedores: any;
   productos: any;

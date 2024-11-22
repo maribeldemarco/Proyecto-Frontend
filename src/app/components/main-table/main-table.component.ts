@@ -32,8 +32,11 @@ export class MainTableComponent implements OnInit {
   eliminarProducto(productId: number) {
     console.log(`Eliminando producto con ID: ${productId}`);
     this.apiService.deleteProduct(productId).subscribe({
-      next: (data) => console.log(data),
-      error: (error) => console.error(error)
+      next: () => {
+        console.log(`Producto con ID ${productId} eliminado.`);
+        window.location.reload();
+      },
+      error: (error) => console.error('Error al eliminar producto:', error),
     });
     this.selectedProductId = null;
   }

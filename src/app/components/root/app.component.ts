@@ -21,7 +21,7 @@ export class AppComponent {
     },
     {
       "nombre": "Agregar producto",
-      "ruta": "agregarproducto"
+      "ruta": "agregar-producto"
     },
     {
       "nombre": "Editar producto",
