@@ -1,2 +1,35 @@
-<h1> Root de la aplicacion </h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid justify-content-space-around">
+    <img src="logo.ico" id="logo" alt="" loading="lazy" />
+    <h1 class="navbar-brand" id="name">PlusPet</h1>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="navbar.toggle()"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNav"
+      mdbCollapse
+      #navbar="mdbCollapse"
+    >
+      <div class="navbar-nav nav-pills">
+        @for (nav of navs; track $index) {
+        <a
+          id="{{ nav.nombre }}"
+          class="nav-link"
+          [class]="$index == 0 ? 'active' : ''"
+          [routerLink]="[nav.ruta]"
+          (click)="select($event)"
+          >{{ navs[$index].nombre }}</a
+        >
+        }
+      </div>
+    </div>
+  </div>
+</nav>
 <router-outlet />

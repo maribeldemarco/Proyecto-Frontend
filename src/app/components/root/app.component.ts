@@ -1,14 +1,39 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MdbCollapseModule, RouterLink],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
-
 export class AppComponent {
-  title = 'Proyecto-Fontend';
+  navs = [
+    {
+      "nombre": "Inicio",
+      "ruta": "home"
+    },
+    {
+      "nombre": "Inventario",
+      "ruta": "inventario"
+    },
+    {
+      "nombre": "Agregar producto",
+      "ruta": "agregar-producto"
+    }
+  ];
+
+  select(e: any) {
+    let active = e.currentTarget.getAttribute('id');
+    let navs = document.querySelectorAll('.nav-link');
+    navs.forEach((element) => {
+      if (element.id == active) {
+        element.classList.add('active');
+      } else {
+        element.classList.remove('active');
+      }
+    });
+  }
 }
