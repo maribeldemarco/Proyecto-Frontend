@@ -1,8 +1,10 @@
 #container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  border-top: .1rem solid white;
+  font-size: 1.5rem;
 }
 
 #selects {
@@ -10,10 +12,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: blueviolet;
   padding: .5% 2%;
+  text-align: center;
 }
 
-select, button {
-  margin: 1%;
+.selector {
+  margin: auto 1%;
+  text-align: center;
+}
+
+.nombre {
+  text-align: center;
+  color: white;
 }

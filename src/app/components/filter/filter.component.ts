@@ -1,11 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
+import { MainTableComponent } from "../main-table/main-table.component";
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MainTableComponent],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css',
 })
@@ -15,9 +16,9 @@ export class FilterComponent implements OnInit {
   proveedores: any;
 
   filtrosElegidos = {
-    categoria: '',
-    subcategoria: '',
-    proveedor: '',
+    categoria: 'Todos',
+    subcategoria: 'Todos',
+    proveedor: 'Todos',
   };
 
   productos: any;
@@ -26,6 +27,7 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargar();
+    this.mostrarProductos();
   }
 
   async cargarCategorias() {
@@ -63,22 +65,23 @@ export class FilterComponent implements OnInit {
 
   async cargar() {
     this.cargarCategorias().then(() =>
-      this.cargarSubcategorias().then(() => this.cargarProveedores())
+      this.cargarSubcategorias().then(() =>
+        this.cargarProveedores())
     );
   }
 
   mostrarProductos() {
     let filters = [];
     let filtersType = [];
-    if (this.filtrosElegidos.categoria) {
+    if (this.filtrosElegidos.categoria != 'Todos') {
       filtersType.push('categoria');
       filters.push(this.filtrosElegidos.categoria);
     }
-    if (this.filtrosElegidos.subcategoria) {
+    if (this.filtrosElegidos.subcategoria != 'Todos') {
       filtersType.push('subcategoria');
       filters.push(this.filtrosElegidos.subcategoria);
     }
-    if (this.filtrosElegidos.proveedor) {
+    if (this.filtrosElegidos.proveedor != 'Todos') {
       filtersType.push('proveedor');
       filters.push(this.filtrosElegidos.proveedor);
     }
