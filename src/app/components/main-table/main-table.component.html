@@ -12,21 +12,21 @@
           </tr>
     </thead>
     <tbody>
-        @for (producto of productos; track $index) {
+        @for (producto of productosEntrantes; track $index) {
             <tr>
-              <th scope="row">{{producto.producto_id}}</th>
-              <td>{{producto.nombre}}</td>
-              <td>{{producto.marca}}</td>
-              <td>{{producto.stock}}</td>
-              <td>{{producto.perece}}</td>
-              <td>{{producto.fecha_vencimiento_formateada}}</td>
+              <td>{{ producto.ProductoID }}</td>
+              <td>{{ producto.Nombre }}</td>
+              <td>{{ producto.Marca }}</td>
+              <td>{{ producto.Stock }}</td>
+              <td>{{ producto.Perece }}</td>
+              <td>{{ producto.Vencimiento }}</td>
               <td>
                 <button
                   type="button"
                   class="btn btn-outline-dark"
                   data-bs-toggle="modal"
                   data-bs-target="#deleteModal"
-                  (click)="prepareDelete(producto.producto_id)"
+                  (click)="prepareDelete(producto.ProductoID)"
                 >
                   <i class="bi bi-trash3-fill"></i>
                 </button>

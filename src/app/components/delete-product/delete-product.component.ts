@@ -7,15 +7,15 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./delete-product.component.css'],
 })
 export class DeleteProductComponent {
-  @Input() productId!: number; // ID del producto a eliminar
-  @Output() onDelete = new EventEmitter<number>(); // Notifica que se confirmó la eliminación
-  @Output() onCancel = new EventEmitter<void>(); // Notifica que se canceló la eliminación
+  @Input() productId!: number;
+  @Output() onDelete = new EventEmitter<number>();
+  @Output() onCancel = new EventEmitter<void>();
 
   confirmDelete() {
-    this.onDelete.emit(this.productId); // Emite el ID para eliminar
+    this.onDelete.emit(this.productId);
   }
 
   cancelDelete() {
-    this.onCancel.emit(); // Notifica que se cancela
+    this.onCancel.emit();
   }
 }
