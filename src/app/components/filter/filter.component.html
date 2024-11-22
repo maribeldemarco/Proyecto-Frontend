@@ -2,7 +2,7 @@
   <div id="selects" (change)="mostrarProductos()">
     <div class="selector">
       <p class="nombre">Categoria</p>
-      <select [(ngModel)]="filtrosElegidos.categoria">
+      <select [(ngModel)]="filtrosElegidos.categoria" [disabled]="resetBtnDisabled">
         @for (categoria of categorias; track $index) {
         <option [value]="categoria.Nombre">{{ categoria.Nombre }}</option>
         }
@@ -11,7 +11,7 @@
     </div>
     <div class="selector">
       <p class="nombre">Subcategoria</p>
-      <select [(ngModel)]="filtrosElegidos.subcategoria">
+      <select [(ngModel)]="filtrosElegidos.subcategoria" [disabled]="resetBtnDisabled">
         @for (subcategoria of subcategorias; track $index) {
         <option [value]="subcategoria.Nombre">{{ subcategoria.Nombre }}</option>
         }
@@ -20,7 +20,7 @@
     </div>
     <div class="selector">
       <p class="nombre">Proveedor</p>
-      <select [(ngModel)]="filtrosElegidos.proveedor">
+      <select [(ngModel)]="filtrosElegidos.proveedor" [disabled]="resetBtnDisabled">
         @for (proveedor of proveedores; track $index) {
         <option [value]="proveedor.Nombre">{{ proveedor.Nombre }}</option>
         }
@@ -28,6 +28,9 @@
       </select>
     </div>
   </div>
+  <button [disabled]="resetBtnDisabled" type="button" id="resetBtn" class="btn btn-danger btn-floating" (click)="resetSelects()">
+    <i id="icono" [class]='icono'></i>
+  </button>
 </div>
 
 <app-main-table [productosEntrantes]="productos"></app-main-table>
