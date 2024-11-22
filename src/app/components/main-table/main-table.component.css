@@ -1,14 +1,19 @@
 .table {
-    border-collapse: collapse;
-  }
-  
-  .table th, 
-  .table td {
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .table-hover tbody tr:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Color de resaltado */
-  }
-  
+  border-collapse: collapse;
+}
+
+.table th, 
+.table td {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Color de resaltado */
+}
+
+.actualizarCSS {
+  position: sticky;
+  bottom: 0;   
+  width: 100vw;           
+}

@@ -22,6 +22,10 @@ export class AppComponent {
     {
       "nombre": "Agregar producto",
       "ruta": "agregar-producto"
+    },
+    {
+      "nombre": "Editar producto",
+      "ruta": "editar-producto"
     }
   ];
 
