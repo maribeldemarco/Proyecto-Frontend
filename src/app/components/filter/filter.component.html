@@ -1,0 +1,33 @@
+<div id="container" class="bg-dark">
+  <div id="selects" (change)="mostrarProductos()">
+    <div class="selector">
+      <p class="nombre">Categoria</p>
+      <select [(ngModel)]="filtrosElegidos.categoria">
+        @for (categoria of categorias; track $index) {
+        <option [value]="categoria.Nombre">{{ categoria.Nombre }}</option>
+        }
+        <option value="Todos">Todos</option>
+      </select>
+    </div>
+    <div class="selector">
+      <p class="nombre">Subcategoria</p>
+      <select [(ngModel)]="filtrosElegidos.subcategoria">
+        @for (subcategoria of subcategorias; track $index) {
+        <option [value]="subcategoria.Nombre">{{ subcategoria.Nombre }}</option>
+        }
+        <option value="Todos">Todos</option>
+      </select>
+    </div>
+    <div class="selector">
+      <p class="nombre">Proveedor</p>
+      <select [(ngModel)]="filtrosElegidos.proveedor">
+        @for (proveedor of proveedores; track $index) {
+        <option [value]="proveedor.Nombre">{{ proveedor.Nombre }}</option>
+        }
+        <option value="Todos">Todos</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<app-main-table [productosEntrantes]="productos"></app-main-table>
