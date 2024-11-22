@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IProducto } from '../models/producto.model';
 import { Producto } from '../models/actualizar.model';
-
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +22,14 @@ import { Producto } from '../models/actualizar.model';
     }
     
     public getProductos() {
-      return this._http.get(`${this.url}/productos`);
+      return this._http.get(`${this.url}/productos`);   } 
+
+    public getProducts():Observable<IProducto[]> {
+        return this._http.get<IProducto[]>(`${this.url}/productos`);
     }
-  }
+
+    deleteProduct(productId: number):Observable<IProducto>{
+      return this._http.delete<IProducto>(`${this.url}/productos/${productId}`);
+    }
+}
+  
