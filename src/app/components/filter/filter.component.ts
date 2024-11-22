@@ -67,7 +67,6 @@ export class FilterComponent implements OnInit {
 
   async cargar() {
     this.cargarCategorias().then(() =>
-      this.cargarSubcategorias().then(() => this.cargarProveedores())
       this.cargarSubcategorias().then(() =>
         this.cargarProveedores())
     );
