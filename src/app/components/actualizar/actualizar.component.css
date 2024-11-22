@@ -28,8 +28,8 @@ input {
 }
 
 input[type="date"] {
-    appearance: none; /* Elimina el estilo predeterminado del navegador */
-    -webkit-appearance: none; /* Elimina estilo en navegadores basados en WebKit */
+    appearance: none;
+    -webkit-appearance: none;
     padding: 4px;
 }
 
@@ -89,10 +89,24 @@ select{
 }
 
 .form-group.checkbox-group {
-    grid-column: span 1; /* Ajusta el checkbox para ocupar una sola columna pequeña */
-    width: auto; /* Permite que el ancho se ajuste al contenido */
+    grid-column: span 1;
+    width: auto;
 }
 input[type="checkbox"] {
-    width: auto; /* Asegura que el checkbox tenga un tamaño compacto */
-    margin: auto; /* Centra el checkbox dentro del contenedor */
+    width: auto;
+    margin: auto;
+}
+
+.alert {
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+  
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
