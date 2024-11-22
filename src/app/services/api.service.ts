@@ -26,7 +26,7 @@ import { Producto } from '../models/agregar.model';
         return this._http.get<IProducto[]>(`${this.url}/productos`);
     }
 
-    deleteProduct(productId: number):Observable<IProducto>{
+    public deleteProduct(productId: number):Observable<IProducto>{
       return this._http.delete<IProducto>(`${this.url}/productos/${productId}`);
     }
     public postProducto(producto: Producto):Observable<Producto> {

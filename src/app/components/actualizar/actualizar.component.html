@@ -55,4 +55,7 @@
             <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
         </div>
     </form>
+    <div *ngIf="mensajeExito" class="alert alert-success" role="alert">
+        {{ mensajeExito }}
+    </div>
 </div>

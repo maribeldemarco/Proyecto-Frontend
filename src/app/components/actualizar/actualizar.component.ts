@@ -16,6 +16,7 @@ export class ActualizarComponent {
   miFormulario: FormGroup;
   proveedores: any;
   productos: any;
+  mensajeExito: string | null = null;
 
   constructor(private _fb: FormBuilder, private _apiService: ApiService) {
     this.miFormulario = this._fb.group({
@@ -40,21 +41,27 @@ export class ActualizarComponent {
       });        
     }
 
-  actualizar()  {
+  actualizar() {
     if (this.miFormulario.valid) {
-        const idProd = this.miFormulario.value.id;
-        const { id  ,  ...productoParaBackend } = this.miFormulario.value;       
-        console.log('Datos enviados al backend:', idProd, productoParaBackend);
+      const idProd = this.miFormulario.value.id;
+      const { id, ...productoParaBackend } = this.miFormulario.value;
 
-        this._apiService.putProducto(idProd, productoParaBackend).subscribe({
-            next: (response) => console.log('Producto actualizado:', response),
-            error: (err) => console.error('Error al actualizar:', err),
-        });
+      this._apiService.putProducto(idProd, productoParaBackend).subscribe({
+        next: (response) => {
+          console.log('Producto actualizado:', response);
+          this.mensajeExito = 'Producto actualizado con éxito.'; // Establece el mensaje
+          setTimeout(() => (this.mensajeExito = null), 3000); // Oculta el mensaje después de 3 segundos
+        },
+        error: (err) => {
+          console.error('Error al actualizar:', err);
+          alert('Ocurrió un error al actualizar el producto.');
+        },
+      });
     } else {
-        alert('Formulario inválido. Por favor, verifique los datos.');
+      alert('Formulario inválido. Por favor, verifique los datos.');
     }
-
   }
+
   cancelar() {
     // Emite un evento para cerrar el formulario
     this.cerrarFormulario.emit();    
