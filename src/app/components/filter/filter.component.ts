@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
-// import { MainTableComponent } from "../main-table/main-table.component";
+import { MainTableComponent } from "../main-table/main-table.component";
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [FormsModule, /*MainTableComponent*/],
+  imports: [FormsModule, MainTableComponent],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css',
 })
