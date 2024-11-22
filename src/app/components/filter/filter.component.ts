@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
-import { MainTableComponent } from "../main-table/main-table.component";
+import { MainTableComponent } from '../main-table/main-table.component';
 
 @Component({
   selector: 'app-filter',
@@ -21,6 +21,8 @@ export class FilterComponent implements OnInit {
     proveedor: 'Todos',
   };
 
+  icono = 'fas fa-solid fa-eraser';
+  resetBtnDisabled = false;
   productos: any;
 
   constructor(private _api: GetAuxService) {}
@@ -65,6 +67,7 @@ export class FilterComponent implements OnInit {
 
   async cargar() {
     this.cargarCategorias().then(() =>
+      this.cargarSubcategorias().then(() => this.cargarProveedores())
       this.cargarSubcategorias().then(() =>
         this.cargarProveedores())
     );
@@ -93,7 +96,21 @@ export class FilterComponent implements OnInit {
       next: (data) => {
         this.productos = data;
         console.log(data);
-      }
+      },
     });
+  }
+
+  resetSelects() {
+    this.filtrosElegidos.categoria = 'Todos';
+    this.filtrosElegidos.subcategoria = 'Todos';
+    this.filtrosElegidos.proveedor = 'Todos';
+
+    this.icono = 'fas fa-solid fa-spinner';
+    this.resetBtnDisabled = true;
+    setTimeout(() => {
+      this.mostrarProductos();
+      this.icono = 'fas fa-solid fa-eraser';
+      this.resetBtnDisabled = false;
+    }, 2000);
   }
 }

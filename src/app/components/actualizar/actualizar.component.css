@@ -1,7 +1,7 @@
 .container {
     padding: 1% 2%;
-    background-color: #cbe4d4;
-    border: 1px solid green;   
+    background-color: rgb(174, 216, 188);
+    border: 1px solid green;
     margin: auto;
     width: 100vw;
     margin-top: 20px;
@@ -9,7 +9,8 @@
     align-items: center;
 }
 
-h2 {  
+
+h2 {
     color: #333;
     margin: 1%;
 }
@@ -24,12 +25,11 @@ input {
     border: 1px solid #5a9;
     border-radius: 4px;
     font-size: 12px;
-   
 }
 
 input[type="date"] {
-    appearance: none; /* Elimina el estilo predeterminado del navegador */
-    -webkit-appearance: none; /* Elimina estilo en navegadores basados en WebKit */
+    appearance: none;
+    -webkit-appearance: none;
     padding: 4px;
 }
 
@@ -76,7 +76,7 @@ input[type="date"] {
 
 input[readonly] {
     color:#666;
-    cursor: not-allowed;  
+    cursor: not-allowed;
 }
 
 input[type="checkbox"] {
@@ -86,14 +86,27 @@ input[type="checkbox"] {
 select{
     padding: 4px;
     width: 100%;
-    
 }
 
 .form-group.checkbox-group {
-    grid-column: span 1; /* Ajusta el checkbox para ocupar una sola columna pequeña */
-    width: auto; /* Permite que el ancho se ajuste al contenido */
+    grid-column: span 1;
+    width: auto;
 }
 input[type="checkbox"] {
-    width: auto; /* Asegura que el checkbox tenga un tamaño compacto */
-    margin: auto; /* Centra el checkbox dentro del contenedor */
+    width: auto;
+    margin: auto;
+}
+
+.alert {
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+  
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
