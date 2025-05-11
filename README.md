@@ -8,8 +8,6 @@ Este es un fork del proyecto original [ChrisNGDC/Proyecto-Frontend](https://gith
 Participé en el desarrollo del componente `agregar-producto`, implementando funcionalidades para añadir productos al sistema.
 
 * Se trabajó con **Angular**.
-* Rama: `agregarproducto`.
-* Commit principal: `se integra componente agregar-producto`.
 
 ### Funcionalidades implementadas:
 
