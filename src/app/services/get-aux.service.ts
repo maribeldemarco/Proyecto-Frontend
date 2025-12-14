@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppComponent } from '../components/root/app.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class GetAuxService {
-  private url = 'http://127.0.0.1:3000'
 
-  constructor(private _http:HttpClient) { }
+  private url = environment.apiUrl;
+
+  constructor(private _http: HttpClient) {}
 
   public getCategorias() {
     return this._http.get(`${this.url}/categorias`);
