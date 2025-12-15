@@ -23,7 +23,7 @@ export class FilterComponent implements OnInit {
 
   icono = 'fas fa-solid fa-eraser';
   resetBtnDisabled = false;
-  productos: any[] = [];  // ✅ INICIALIZAR COMO ARRAY VACÍO
+  productos: any[] = [];
 
   constructor(private _api: GetAuxService) {}
 
@@ -34,8 +34,8 @@ export class FilterComponent implements OnInit {
 
   async cargarCategorias() {
     this._api.getCategorias().subscribe({
-      next: (data) => {
-        this.categorias = data;
+      next: (data: any) => {
+        this.categorias = Array.isArray(data) ? data : [];  // ✅ FIX
       },
       error: () => {
         this.cargarCategorias();
@@ -45,8 +45,8 @@ export class FilterComponent implements OnInit {
 
   async cargarSubcategorias() {
     this._api.getSubcategorias().subscribe({
-      next: (data) => {
-        this.subcategorias = data;
+      next: (data: any) => {
+        this.subcategorias = Array.isArray(data) ? data : [];  // ✅ FIX
       },
       error: () => {
         this.cargarSubcategorias();
@@ -56,8 +56,8 @@ export class FilterComponent implements OnInit {
 
   async cargarProveedores() {
     this._api.getProveedores().subscribe({
-      next: (data) => {
-        this.proveedores = data;
+      next: (data: any) => {
+        this.proveedores = Array.isArray(data) ? data : [];  // ✅ FIX
       },
       error: () => {
         this.cargarProveedores();
@@ -91,13 +91,11 @@ export class FilterComponent implements OnInit {
       filterType += '/';
     }
     this._api.getProductosByFilters(filterType, filters).subscribe({
-      next: (data) => {
-        // ✅ VERIFICAR QUE DATA SEA UN ARRAY
+      next: (data: any) => {
         this.productos = Array.isArray(data) ? data : [];
         console.log(data);
       },
       error: (error) => {
-        // ✅ MANEJAR ERRORES Y MANTENER ARRAY VACÍO
         console.error('Error al cargar productos:', error);
         this.productos = [];
       }
