@@ -18,11 +18,19 @@ export class MainTableComponent implements OnInit {
   selectedProductId!: number | null;
   mostrarActualizar = true;
   productoAEditar: any;
+
   constructor(private apiService: ApiService){}
 
   ngOnInit(): void {
-    console.log(this.productosEntrantes)
-    this.productos = this.productosEntrantes.map((producto:any) => ({}));
+    console.log(this.productosEntrantes);
+
+    // ✅ CORREGIDO: Asignar los productos directamente si existen
+    if (this.productosEntrantes && Array.isArray(this.productosEntrantes)) {
+      this.productos = this.productosEntrantes;
+    } else {
+      this.productos = [];
+      console.warn('productosEntrantes no es un array válido');
+    }
   }
 
   prepareDelete(productId: number) {
