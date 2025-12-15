@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeleteProductComponent } from '../delete-product/delete-product.component';
 import { ApiService } from '../../services/api.service';
@@ -10,26 +10,25 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.css'],
 })
+export class MainTableComponent implements OnChanges {
 
-export class MainTableComponent implements OnInit {
-  @Input() productosEntrantes?: any;
+  @Input() productosEntrantes?: any[];
 
   productos: any[] = [];
   selectedProductId!: number | null;
-  mostrarActualizar = true;
-  productoAEditar: any;
 
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {
-    console.log(this.productosEntrantes);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['productosEntrantes']) {
+      const value = changes['productosEntrantes'].currentValue;
 
-    // ✅ CORREGIDO: Asignar los productos directamente si existen
-    if (this.productosEntrantes && Array.isArray(this.productosEntrantes)) {
-      this.productos = this.productosEntrantes;
-    } else {
-      this.productos = [];
-      console.warn('productosEntrantes no es un array válido');
+      if (Array.isArray(value)) {
+        this.productos = value;
+        console.log('Productos actualizados:', this.productos);
+      } else {
+        this.productos = [];
+      }
     }
   }
 
@@ -38,19 +37,14 @@ export class MainTableComponent implements OnInit {
   }
 
   eliminarProducto(productId: number) {
-    console.log(`Eliminando producto con ID: ${productId}`);
     this.apiService.deleteProduct(productId).subscribe({
-      next: () => {
-        console.log(`Producto con ID ${productId} eliminado.`);
-        window.location.reload();
-      },
-      error: (error) => console.error('Error al eliminar producto:', error),
+      next: () => window.location.reload(),
+      error: (err) => console.error(err),
     });
     this.selectedProductId = null;
   }
 
   cancelarEliminacion() {
-    console.log('Eliminación cancelada');
     this.selectedProductId = null;
   }
 }
