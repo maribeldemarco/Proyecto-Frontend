@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output} from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter,OnInit, Input, Output} from '@angular/core';
+import { FormBuilder, FormGroup,  ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './actualizar.component.html',
   styleUrl: './actualizar.component.css'
 })
-export class ActualizarComponent {
+export class ActualizarComponent implements OnInit {
   @Output() cerrarFormulario = new EventEmitter<void>();
   @Input() productoAEditar: any;
   miFormulario: FormGroup;
