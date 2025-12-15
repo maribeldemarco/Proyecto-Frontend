@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
@@ -6,101 +6,98 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-actualizar',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './actualizar.component.html',
-  styleUrls: ['./actualizar.component.css'] // CORREGIDO
+  styleUrl: './actualizar.component.css'
 })
-export class ActualizarComponent implements OnInit {
+export class ActualizarComponent {
   @Output() cerrarFormulario = new EventEmitter<void>();
   @Input() productoAEditar: any;
-
   miFormulario: FormGroup;
-  proveedores: any[] = [];
-  productos: any[] = [];
+  proveedores: any;
+  productos: any;
   mensajeExito: string | null = null;
 
-  constructor(private fb: FormBuilder, private api: ApiService) {
-    this.miFormulario = this.fb.group({
-      id: [''],
-      Nombre: ['', Validators.required],
-      Marca: ['', Validators.required],
-      Stock: [0, [Validators.required, Validators.min(0)]],
-      Perece: [0, [Validators.required, Validators.min(0)]], // NUMÉRICO
-      Fecha_Vencimiento: [''],
-      ProveedorID: [null, Validators.required],
-      CategoriaSubcategoriaID: [null]
-    });
+  constructor(private _fb: FormBuilder, private _apiService: ApiService) {
+    this.miFormulario = this._fb.group({
+    id: "",
+    Nombre: ['', Validators.required],
+    Marca: ['', Validators.required],
+    Stock: ['', [Validators.required, Validators.min(0)]],
+    Perece: [0],
+    Fecha_Vencimiento: [''],
+    ProveedorID: ['', [Validators.required, Validators.min(1)]],
+    CategoriaSubcategoriaID: ['', [Validators.required, Validators.min(1)]],
+  });
   }
 
-  ngOnInit(): void {
-    this.api.getProveedores().subscribe((p: any[]) => this.proveedores = p);
-    this.api.getProductos().subscribe((p: any[]) => this.productos = p);
+    ngOnInit() {
+      this._apiService.getProveedores().subscribe(proveedores => {
+        this.proveedores = proveedores;
+      });
 
-    // Si llega un producto para editar desde Input
-    if (this.productoAEditar) {
-      this.cargarProducto(this.productoAEditar.id || this.productoAEditar.ProductoID);
-    }
-  }
-
-  cargarProducto(id: number): void {
-    const producto = this.productos.find(p => p.ProductoID === Number(id) || p.productoid === Number(id));
-
-    if (!producto) {
-      alert(`No se encontró el producto ${id}`);
-      this.miFormulario.reset();
-      return;
+      this._apiService.getProductos().subscribe(productos => {
+        this.productos = productos;
+      });
     }
 
-    const fechaFormateada = producto.Vencimiento ? this.formatDate(producto.Vencimiento) : '';
+  actualizar() {
+    if (this.miFormulario.valid) {
+      const idProd = this.miFormulario.value.id;
+      const { id, ...productoParaBackend } = this.miFormulario.value;
 
-    this.miFormulario.patchValue({
-      Nombre: producto.Nombre || producto.nombre,
-      Marca: producto.Marca || producto.marca,
-      Stock: producto.Stock,
-      Perece: producto.Perece || 0,
-      Fecha_Vencimiento: fechaFormateada,
-      ProveedorID: producto.ProveedorID || producto.proveedorid,
-      CategoriaSubcategoriaID: producto.CategoriasSubcategoriasID || producto.categoriassubcategoriasid
-    });
-  }
-
-  actualizar(): void {
-    if (this.miFormulario.invalid) {
+      this._apiService.putProducto(idProd, productoParaBackend).subscribe({
+        next: (response) => {
+          console.log('Producto actualizado:', response);
+          this.mensajeExito = 'Producto actualizado con éxito.'; // Establece el mensaje
+          setTimeout(() => (this.mensajeExito = null), 3000); // Oculta el mensaje después de 3 segundos
+        },
+        error: (err) => {
+          console.error('Error al actualizar:', err);
+          alert('Ocurrió un error al actualizar el producto.');
+        },
+      });
+    } else {
       alert('Formulario inválido. Por favor, verifique los datos.');
-      return;
     }
-
-    const { id, ...productoParaBackend } = this.miFormulario.value;
-    this.api.putProducto(id, productoParaBackend).subscribe({
-      next: () => {
-        this.mensajeExito = 'Producto actualizado con éxito.';
-        setTimeout(() => (this.mensajeExito = null), 3000);
-      },
-      error: (err) => {
-        console.error('Error al actualizar:', err);
-        alert('Ocurrió un error al actualizar el producto.');
-      }
-    });
   }
 
-  cancelar(): void {
-    this.miFormulario.reset({
-      id: '',
-      Nombre: '',
-      Marca: '',
-      Stock: 0,
-      Perece: 0,
-      Fecha_Vencimiento: '',
-      ProveedorID: null,
-      CategoriaSubcategoriaID: null
-    });
+  cancelar() {
+    // Emite un evento para cerrar el formulario
     this.cerrarFormulario.emit();
   }
 
+  //CARGAR LOS PRODUCTOS EN EL FORMULARIO
+  cargarProducto(id: number) {
+const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
+    if (producto) {
+      console.log(producto);
+      // Convertir la fecha al formato ISO (yyyy-MM-dd)
+      const fechaFormateada = producto.Vencimiento ? this.formatDate(producto.Vencimiento) : null;
+
+      // Cargar los valores en el formulario
+      this.miFormulario.patchValue({
+        Nombre: producto.Nombre,
+        Marca: producto.Marca,
+        Stock: producto.Stock,
+        Perece: producto.Perece === "Si" ? 1 : 0,
+        Fecha_Vencimiento: fechaFormateada,
+        ProveedorID: producto.ProveedorID,
+        CategoriaSubcategoriaID: producto.CategoriasSubcategoriasID,
+      });
+    } else {
+      alert(`No se encontró un producto con el ID ${id}`);
+      this.miFormulario.reset();
+    }
+  }
+
   formatDate(date: string): string {
-    if (!date) return '';
-    if (date.includes('-')) return date; // ya está en ISO
+    // Verificar si la fecha ya está en formato ISO (yyyy-MM-dd)
+    if (date.includes('-')) {
+      return date; // Ya está en el formato correcto
+    }
+    // Convertir la fecha al formato dd/MM/yyyy a Formato yyyy-MM-dd
     const [day, month, year] = date.split('/');
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Formato yyyy-MM-dd
   }
 }
