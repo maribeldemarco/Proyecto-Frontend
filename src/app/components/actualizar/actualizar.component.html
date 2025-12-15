@@ -38,8 +38,8 @@
         <label for="proveedor" class="form-label">Proveedor</label>
         <select id="proveedor" formControlName="ProveedorID" class="form-select">
           <option value="" disabled selected>Seleccione un proveedor</option>
-          <option *ngFor="let proveedor of proveedores" [value]="proveedor.ProveedorID">
-            {{ proveedor.Nombre }}
+          <option *ngFor="let proveedor of proveedores" [value]="proveedor.proveedorid">
+            {{ proveedor.nombre }}
           </option>
         </select>
       </div>
