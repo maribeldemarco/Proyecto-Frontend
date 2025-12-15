@@ -11,8 +11,10 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
 
   private url = environment.apiUrl;
+  constructor(private _http: HttpClient) {
+    console.log(this.url)
 
-  constructor(private _http: HttpClient) {}
+  }
 
   public putProducto(id: number, producto: Partial<Producto>): Observable<Producto> {
     return this._http.put<Producto>(`${this.url}/productos/${id}`, producto);

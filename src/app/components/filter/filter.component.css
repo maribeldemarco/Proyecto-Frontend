@@ -1,9 +1,8 @@
 #container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;      /* ✅ CLAVE */
   justify-content: center;
-  align-items: end;
-  font-size: 1.5rem;
+  align-items: center;  /* ✅ */
 }
 
 #selects {
@@ -52,4 +51,27 @@ select option:checked  {
 @keyframes fullRotate {
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
+}
+@media (max-width: 992px) {
+  #container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #selects {
+    flex-direction: column;
+  }
+
+  .selector {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  select {
+    width: 100%;
+  }
+}
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
 }
