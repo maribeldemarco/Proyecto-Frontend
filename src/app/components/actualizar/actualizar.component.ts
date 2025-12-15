@@ -72,16 +72,16 @@ export class ActualizarComponent implements OnInit {
     const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
     if (producto) {
       console.log(producto);
-      const fechaFormateada = producto.Vencimiento ? this.formatDate(producto.Vencimiento) : null;
+      const fechaFormateada = producto.vencimiento ? this.formatDate(producto.vencimiento) : null;
 
       this.miFormulario.patchValue({
-        Nombre: producto.Nombre,
-        Marca: producto.Marca,
-        Stock: producto.Stock,
-        Perece: producto.Perece === "Si" ? 1 : 0,
+        Nombre: producto.nombre,
+        Marca: producto.marca,
+        Stock: producto.stock,
+        Perece: producto.perece === "Si" ? 1 : 0,
         Fecha_Vencimiento: fechaFormateada,
-        ProveedorID: producto.ProveedorID,
-        CategoriaSubcategoriaID: producto.CategoriasSubcategoriasID,
+        ProveedorID: producto.proveedorid,
+        CategoriaSubcategoriaID: producto.categoriassubcategoriasid,
       });
     } else {
       alert(`No se encontró un producto con el ID ${id}`);
