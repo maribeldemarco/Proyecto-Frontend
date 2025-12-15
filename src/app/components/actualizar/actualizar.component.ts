@@ -31,15 +31,17 @@ export class ActualizarComponent implements OnInit {
   });
   }
 
-    ngOnInit() {
-      this._apiService.getProveedores().subscribe(proveedores => {
-        this.proveedores = proveedores;
-      });
+  ngOnInit() {
+    this._apiService.getProveedores().subscribe(proveedores => {
+      this.proveedores = proveedores;
+      console.log('Proveedores cargados:', this.proveedores);
+    });
 
-      this._apiService.getProductos().subscribe(productos => {
-        this.productos = productos;
-      });
-    }
+    this._apiService.getProductos().subscribe(productos => {
+      this.productos = productos;
+      console.log('Productos cargados:', this.productos);
+    });
+  }
 
   actualizar() {
     if (this.miFormulario.valid) {
@@ -49,8 +51,8 @@ export class ActualizarComponent implements OnInit {
       this._apiService.putProducto(idProd, productoParaBackend).subscribe({
         next: (response) => {
           console.log('Producto actualizado:', response);
-          this.mensajeExito = 'Producto actualizado con éxito.'; // Establece el mensaje
-          setTimeout(() => (this.mensajeExito = null), 3000); // Oculta el mensaje después de 3 segundos
+          this.mensajeExito = 'Producto actualizado con éxito.';
+          setTimeout(() => (this.mensajeExito = null), 3000);
         },
         error: (err) => {
           console.error('Error al actualizar:', err);
@@ -63,19 +65,15 @@ export class ActualizarComponent implements OnInit {
   }
 
   cancelar() {
-    // Emite un evento para cerrar el formulario
     this.cerrarFormulario.emit();
   }
 
-  //CARGAR LOS PRODUCTOS EN EL FORMULARIO
   cargarProducto(id: number) {
-const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
+    const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
     if (producto) {
       console.log(producto);
-      // Convertir la fecha al formato ISO (yyyy-MM-dd)
       const fechaFormateada = producto.Vencimiento ? this.formatDate(producto.Vencimiento) : null;
 
-      // Cargar los valores en el formulario
       this.miFormulario.patchValue({
         Nombre: producto.Nombre,
         Marca: producto.Marca,
@@ -92,12 +90,10 @@ const producto = this.productos.find((prod: any) => prod.productoid === Number(i
   }
 
   formatDate(date: string): string {
-    // Verificar si la fecha ya está en formato ISO (yyyy-MM-dd)
     if (date.includes('-')) {
-      return date; // Ya está en el formato correcto
+      return date;
     }
-    // Convertir la fecha al formato dd/MM/yyyy a Formato yyyy-MM-dd
     const [day, month, year] = date.split('/');
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Formato yyyy-MM-dd
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
 }
