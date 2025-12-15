@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
 import { MainTableComponent } from '../main-table/main-table.component';
@@ -25,7 +25,10 @@ export class FilterComponent implements OnInit {
   resetBtnDisabled = false;
   productos: any[] = [];
 
-  constructor(private _api: GetAuxService) {}
+  constructor(
+    private _api: GetAuxService,
+    private cdr: ChangeDetectorRef  // ✅ AGREGAR
+  ) {}
 
   ngOnInit(): void {
     this.cargar();
@@ -35,7 +38,7 @@ export class FilterComponent implements OnInit {
   async cargarCategorias() {
     this._api.getCategorias().subscribe({
       next: (data: any) => {
-        this.categorias = Array.isArray(data) ? data : [];  // ✅ FIX
+        this.categorias = Array.isArray(data) ? data : [];
       },
       error: () => {
         this.cargarCategorias();
@@ -46,7 +49,7 @@ export class FilterComponent implements OnInit {
   async cargarSubcategorias() {
     this._api.getSubcategorias().subscribe({
       next: (data: any) => {
-        this.subcategorias = Array.isArray(data) ? data : [];  // ✅ FIX
+        this.subcategorias = Array.isArray(data) ? data : [];
       },
       error: () => {
         this.cargarSubcategorias();
@@ -57,7 +60,7 @@ export class FilterComponent implements OnInit {
   async cargarProveedores() {
     this._api.getProveedores().subscribe({
       next: (data: any) => {
-        this.proveedores = Array.isArray(data) ? data : [];  // ✅ FIX
+        this.proveedores = Array.isArray(data) ? data : [];
       },
       error: () => {
         this.cargarProveedores();
@@ -94,6 +97,7 @@ export class FilterComponent implements OnInit {
       next: (data: any) => {
         this.productos = Array.isArray(data) ? data : [];
         console.log(data);
+        this.cdr.detectChanges();  // ✅ FORZAR DETECCIÓN DE CAMBIOS
       },
       error: (error) => {
         console.error('Error al cargar productos:', error);
