@@ -23,12 +23,12 @@ export class ActualizarComponent {
     id: "",
     Nombre: ['', Validators.required],
     Marca: ['', Validators.required],
-    Stock: ['', [Validators.required, Validators.min(0)]], 
+    Stock: ['', [Validators.required, Validators.min(0)]],
     Perece: [0],
     Fecha_Vencimiento: [''],
-    ProveedorID: ['', [Validators.required, Validators.min(1)]], 
-    CategoriaSubcategoriaID: ['', [Validators.required, Validators.min(1)]], 
-  });  
+    ProveedorID: ['', [Validators.required, Validators.min(1)]],
+    CategoriaSubcategoriaID: ['', [Validators.required, Validators.min(1)]],
+  });
   }
 
     ngOnInit() {
@@ -38,7 +38,7 @@ export class ActualizarComponent {
 
       this._apiService.getProductos().subscribe(productos => {
         this.productos = productos;
-      });        
+      });
     }
 
   actualizar() {
@@ -64,17 +64,17 @@ export class ActualizarComponent {
 
   cancelar() {
     // Emite un evento para cerrar el formulario
-    this.cerrarFormulario.emit();    
+    this.cerrarFormulario.emit();
   }
 
   //CARGAR LOS PRODUCTOS EN EL FORMULARIO
   cargarProducto(id: number) {
-    const producto = this.productos.find((prod: any) => prod.ProductoID === id);  
+const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
     if (producto) {
-      console.log(producto);  
+      console.log(producto);
       // Convertir la fecha al formato ISO (yyyy-MM-dd)
       const fechaFormateada = producto.Vencimiento ? this.formatDate(producto.Vencimiento) : null;
-  
+
       // Cargar los valores en el formulario
       this.miFormulario.patchValue({
         Nombre: producto.Nombre,
@@ -85,7 +85,7 @@ export class ActualizarComponent {
         ProveedorID: producto.ProveedorID,
         CategoriaSubcategoriaID: producto.CategoriasSubcategoriasID,
       });
-    } else {      
+    } else {
       alert(`No se encontró un producto con el ID ${id}`);
       this.miFormulario.reset();
     }
