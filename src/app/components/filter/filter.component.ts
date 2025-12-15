@@ -11,9 +11,9 @@ import { MainTableComponent } from '../main-table/main-table.component';
   styleUrl: './filter.component.css',
 })
 export class FilterComponent implements OnInit {
-  categorias: any;
-  subcategorias: any;
-  proveedores: any;
+  categorias: any[] = [];
+  subcategorias: any[] = [];
+  proveedores: any[] = [];
 
   filtrosElegidos = {
     categoria: 'Todos',
@@ -23,7 +23,7 @@ export class FilterComponent implements OnInit {
 
   icono = 'fas fa-solid fa-eraser';
   resetBtnDisabled = false;
-  productos: any;
+  productos: any[] = [];  // ✅ INICIALIZAR COMO ARRAY VACÍO
 
   constructor(private _api: GetAuxService) {}
 
@@ -92,9 +92,15 @@ export class FilterComponent implements OnInit {
     }
     this._api.getProductosByFilters(filterType, filters).subscribe({
       next: (data) => {
-        this.productos = data;
+        // ✅ VERIFICAR QUE DATA SEA UN ARRAY
+        this.productos = Array.isArray(data) ? data : [];
         console.log(data);
       },
+      error: (error) => {
+        // ✅ MANEJAR ERRORES Y MANTENER ARRAY VACÍO
+        console.error('Error al cargar productos:', error);
+        this.productos = [];
+      }
     });
   }
 
