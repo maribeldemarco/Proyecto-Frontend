@@ -11,21 +11,21 @@
     </tr>
   </thead>
   <tbody>
-    @for (producto of productosEntrantes; track $index) {
+    @for (producto of productos; track $index) {
     <tr>
-      <td>{{ producto.ProductoID }}</td>
-      <td>{{ producto.Nombre }}</td>
-      <td>{{ producto.Marca }}</td>
-      <td>{{ producto.Stock }}</td>
-      <td>{{ producto.Perece }}</td>
-      <td>{{ producto.Vencimiento }}</td>
+      <td>{{ producto.productoid }}</td>
+      <td>{{ producto.nombre }}</td>
+      <td>{{ producto.marca }}</td>
+      <td>{{ producto.stock }}</td>
+      <td>{{ producto.perece }}</td>
+      <td>{{ producto.vencimiento }}</td>
       <td>
         <button
           type="button"
           class="btn btn-outline-dark"
           data-bs-toggle="modal"
           data-bs-target="#deleteModal"
-          (click)="prepareDelete(producto.ProductoID)"
+          (click)="prepareDelete(producto.productoid)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
