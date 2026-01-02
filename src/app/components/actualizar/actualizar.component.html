@@ -44,16 +44,19 @@
         </select>
       </div>
 
-      <!-- Perece (solo número) -->
+      <!-- ¿Es perecedero? -->
       <div class="form-group">
-        <label for="perece" class="form-label">Perece (días)</label>
-        <input
-          type="number"
-          class="form-control"
-          id="perece"
-          formControlName="Perece"
-          min="0"
-        />
+        <label for="perece" class="form-label">¿Es perecedero?</label>
+        <select class="form-control" id="perece" formControlName="Perece">
+          <option value="0">No</option>
+          <option value="1">Sí</option>
+        </select>
+      </div>
+
+      <!-- Fecha de Vencimiento (solo si es perecedero) -->
+      <div class="form-group" *ngIf="miFormulario.get('Perece')?.value == '1'">
+        <label for="Fecha_Vencimiento" class="form-label">Fecha de Vencimiento</label>
+        <input type="date" class="form-control" id="Fecha_Vencimiento" formControlName="Fecha_Vencimiento">
       </div>
 
     </div>

@@ -1,33 +1,34 @@
-<div id="container" class="bg-dark">
+<div id="container">
   <div id="selects" (change)="mostrarProductos()">
     <div class="selector">
       <p class="nombre">Categoria</p>
       <select [(ngModel)]="filtrosElegidos.categoria" [disabled]="resetBtnDisabled">
-        @for (categoria of categorias; track $index) {
-        <option [value]="categoria.Nombre">{{ categoria.Nombre }}</option>
-        }
         <option value="Todos">Todos</option>
+        @for (categoria of categorias; track $index) {
+        <option [value]="categoria.nombre">{{ categoria.nombre }}</option>
+        }
       </select>
     </div>
     <div class="selector">
       <p class="nombre">Subcategoria</p>
       <select [(ngModel)]="filtrosElegidos.subcategoria" [disabled]="resetBtnDisabled">
-        @for (subcategoria of subcategorias; track $index) {
-        <option [value]="subcategoria.Nombre">{{ subcategoria.Nombre }}</option>
-        }
         <option value="Todos">Todos</option>
+        @for (subcategoria of subcategorias; track $index) {
+        <option [value]="subcategoria.nombre">{{ subcategoria.nombre }}</option>
+        }
       </select>
     </div>
     <div class="selector">
       <p class="nombre">Proveedor</p>
       <select [(ngModel)]="filtrosElegidos.proveedor" [disabled]="resetBtnDisabled">
-        @for (proveedor of proveedores; track $index) {
-        <option [value]="proveedor.Nombre">{{ proveedor.Nombre }}</option>
-        }
         <option value="Todos">Todos</option>
+        @for (proveedor of proveedores; track $index) {
+        <option [value]="proveedor.nombre">{{ proveedor.nombre }}</option>
+        }
       </select>
     </div>
   </div>
+
   <button [disabled]="resetBtnDisabled" type="button" id="resetBtn" class="btn btn-danger btn-floating" (click)="resetSelects()">
     <i id="icono" [class]='icono'></i>
   </button>

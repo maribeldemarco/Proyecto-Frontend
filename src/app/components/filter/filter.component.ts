@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GetAuxService } from '../../services/get-aux.service';
 import { FormsModule } from '@angular/forms';
 import { MainTableComponent } from '../main-table/main-table.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -27,77 +28,60 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private _api: GetAuxService,
-    private cdr: ChangeDetectorRef  // ✅ AGREGAR
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.cargar();
-    this.mostrarProductos();
   }
 
-  async cargarCategorias() {
-    this._api.getCategorias().subscribe({
-      next: (data: any) => {
-        this.categorias = Array.isArray(data) ? data : [];
+  cargar() {
+    forkJoin({
+      categorias: this._api.getCategorias(),
+      subcategorias: this._api.getSubcategorias(),
+      proveedores: this._api.getProveedores()
+    }).subscribe({
+      next: (data) => {
+        this.categorias = Array.isArray(data.categorias) ? data.categorias : [];
+        this.subcategorias = Array.isArray(data.subcategorias) ? data.subcategorias : [];
+        this.proveedores = Array.isArray(data.proveedores) ? data.proveedores : [];
+
+        this.cdr.detectChanges();
+        this.mostrarProductos();
       },
-      error: () => {
-        this.cargarCategorias();
-      },
+      error: (error) => {
+        console.error('Error al cargar filtros:', error);
+        setTimeout(() => this.cargar(), 2000);
+      }
     });
   }
-
-  async cargarSubcategorias() {
-    this._api.getSubcategorias().subscribe({
-      next: (data: any) => {
-        this.subcategorias = Array.isArray(data) ? data : [];
-      },
-      error: () => {
-        this.cargarSubcategorias();
-      },
-    });
-  }
-
-  async cargarProveedores() {
-    this._api.getProveedores().subscribe({
-      next: (data: any) => {
-        this.proveedores = Array.isArray(data) ? data : [];
-      },
-      error: () => {
-        this.cargarProveedores();
-      },
-    });
-  }
-
-  async cargar() {
-    this.cargarCategorias().then(() =>
-      this.cargarSubcategorias().then(() =>
-        this.cargarProveedores())
-  )}
 
   mostrarProductos() {
-    let filters = [];
-    let filtersType = [];
-    if (this.filtrosElegidos.categoria != 'Todos') {
+    let filters: string[] = [];
+    let filtersType: string[] = [];
+
+    if (this.filtrosElegidos.categoria && this.filtrosElegidos.categoria !== 'Todos') {
       filtersType.push('categoria');
       filters.push(this.filtrosElegidos.categoria);
     }
-    if (this.filtrosElegidos.subcategoria != 'Todos') {
+    if (this.filtrosElegidos.subcategoria && this.filtrosElegidos.subcategoria !== 'Todos') {
       filtersType.push('subcategoria');
       filters.push(this.filtrosElegidos.subcategoria);
     }
-    if (this.filtrosElegidos.proveedor != 'Todos') {
+    if (this.filtrosElegidos.proveedor && this.filtrosElegidos.proveedor !== 'Todos') {
       filtersType.push('proveedor');
       filters.push(this.filtrosElegidos.proveedor);
     }
+
     let filterType = filtersType.join('Y');
     if (filters.length > 0) {
       filterType += '/';
     }
+
     this._api.getProductosByFilters(filterType, filters).subscribe({
       next: (data: any) => {
         this.productos = Array.isArray(data) ? data : [];
-        console.log(data);
-        this.cdr.detectChanges();  // ✅ FORZAR DETECCIÓN DE CAMBIOS
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error al cargar productos:', error);
@@ -113,6 +97,7 @@ export class FilterComponent implements OnInit {
 
     this.icono = 'fas fa-solid fa-spinner';
     this.resetBtnDisabled = true;
+
     setTimeout(() => {
       this.mostrarProductos();
       this.icono = 'fas fa-solid fa-eraser';

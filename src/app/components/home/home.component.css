@@ -5,7 +5,7 @@
   align-items: center;
   height: 85vh;
   background-color: white;
-  background-image: url(../../../../public/fondo.jpg);
+  background-image: url(../../../../public/imagen_principal.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -16,19 +16,15 @@
 }
 
 .titulo {
-  font-size: 5.5rem;
+  font-size: 1.5rem;
+  margin: auto;
   font-family: 'Finger Paint';
 }
 
 .presentacion {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #ffffff4c;
-  padding: 1%;
+  padding: 54px;
   border-radius: 12.5px;
+  background-color: #ffffff4c;
 }
 
 .descripcion {
