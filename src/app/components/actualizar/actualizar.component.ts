@@ -1,12 +1,12 @@
-import { Component, EventEmitter,OnInit, Input, Output} from '@angular/core';
-import { FormBuilder, FormGroup,  ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-actualizar',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './actualizar.component.html',
   styleUrl: './actualizar.component.css'
 })
@@ -20,15 +20,15 @@ export class ActualizarComponent implements OnInit {
 
   constructor(private _fb: FormBuilder, private _apiService: ApiService) {
     this.miFormulario = this._fb.group({
-    id: "",
-    Nombre: ['', Validators.required],
-    Marca: ['', Validators.required],
-    Stock: ['', [Validators.required, Validators.min(0)]],
-    Perece: ['0', Validators.required], // Cambié a string '0' por defecto
-    Fecha_Vencimiento: [''],
-    ProveedorID: ['', [Validators.required, Validators.min(1)]],
-    CategoriaSubcategoriaID: ['', [Validators.required, Validators.min(1)]],
-  });
+      id: "",
+      Nombre: ['', Validators.required],
+      Marca: ['', Validators.required],
+      Stock: ['', [Validators.required, Validators.min(0)]],
+      Perece: ['0', Validators.required], // Cambié a string '0' por defecto
+      Fecha_Vencimiento: [''],
+      ProveedorID: ['', [Validators.required, Validators.min(1)]],
+      CategoriaSubcategoriaID: ['', [Validators.required, Validators.min(1)]],
+    });
   }
 
   ngOnInit() {
@@ -49,8 +49,8 @@ export class ActualizarComponent implements OnInit {
       const { id, ...productoParaBackend } = this.miFormulario.value;
 
       // Convertir fecha a null si perece es "No"
-      const fechaVencimiento = this.miFormulario.value.Perece === '1' 
-        ? this.miFormulario.value.Fecha_Vencimiento 
+      const fechaVencimiento = this.miFormulario.value.Perece === '1'
+        ? this.miFormulario.value.Fecha_Vencimiento
         : null;
 
       const productoFinal = {
@@ -74,16 +74,12 @@ export class ActualizarComponent implements OnInit {
     }
   }
 
-  cancelar() {
-    this.cerrarFormulario.emit();
-  }
-
   cargarProducto(id: number) {
     const producto = this.productos.find((prod: any) => prod.productoid === Number(id));
     if (producto) {
       console.log(producto);
-      const fechaFormateada = producto.vencimiento && producto.vencimiento !== '-' 
-        ? this.formatDate(producto.vencimiento) 
+      const fechaFormateada = producto.vencimiento && producto.vencimiento !== '-'
+        ? this.formatDate(producto.vencimiento)
         : null;
 
       this.miFormulario.patchValue({

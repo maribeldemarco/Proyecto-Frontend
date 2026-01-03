@@ -15,18 +15,11 @@
   margin-bottom: 1%;
 }
 
-.titulo {
-  font-size: 1.5rem;
-  margin: auto;
-  font-family: 'Finger Paint';
-}
-
 .presentacion {
   padding: 54px;
   border-radius: 12.5px;
   background-color: #ffffff4c;
 }
 
-.descripcion {
-  font-size: 2rem;
-}
+
+
