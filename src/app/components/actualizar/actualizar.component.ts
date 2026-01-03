@@ -16,6 +16,7 @@ export class ActualizarComponent implements OnInit {
   miFormulario: FormGroup;
   proveedores: any;
   productos: any;
+  esError: boolean = false;
   mensajeExito: string | null = null;
 
   constructor(private _fb: FormBuilder, private _apiService: ApiService) {
@@ -62,15 +63,17 @@ export class ActualizarComponent implements OnInit {
         next: (response) => {
           console.log('Producto actualizado:', response);
           this.mensajeExito = 'Producto actualizado con éxito.';
-          setTimeout(() => (this.mensajeExito = null), 3000);
+          this.esError = false; // Cambia el fondo a VERDE
         },
         error: (err) => {
           console.error('Error al actualizar:', err);
-          alert('Ocurrió un error al actualizar el producto.');
+         this.mensajeExito = 'Error al actualizar.';
+        this.esError = true;
         },
       });
     } else {
-      alert('Formulario inválido. Por favor, verifique los datos.');
+      this.mensajeExito = 'Formulario incompleto';
+    this.esError = true;
     }
   }
 

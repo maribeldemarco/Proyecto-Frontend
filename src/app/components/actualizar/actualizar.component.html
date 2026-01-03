@@ -65,10 +65,13 @@
     <div class="button-container mt-3">
       <button type="submit" class="btn btn-secondary">Actualizar</button>
     </div>
+   <div *ngIf="mensajeExito"
+     class="alert mt-2"
+     [ngClass]="esError ? 'alert-danger' : 'alert-success'"
+     role="alert">
+  {{ mensajeExito }}
+</div>
   </form>
 
-  <!-- Mensaje de éxito -->
-  <div *ngIf="mensajeExito" class="alert alert-success mt-2" role="alert">
-    {{ mensajeExito }}
-  </div>
+
 </div>
