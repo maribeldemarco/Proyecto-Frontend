@@ -32,8 +32,10 @@ export class FilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cargar();
-  }
+  this.cargar();            // filtros
+  this.mostrarProductos();  // productos
+}
+
 
   cargar() {
     forkJoin({
@@ -47,7 +49,7 @@ export class FilterComponent implements OnInit {
         this.proveedores = Array.isArray(data.proveedores) ? data.proveedores : [];
 
         this.cdr.detectChanges();
-        this.mostrarProductos();
+       // this.mostrarProductos();
       },
       error: (error) => {
         console.error('Error al cargar filtros:', error);
