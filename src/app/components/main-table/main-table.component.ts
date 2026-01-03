@@ -12,10 +12,10 @@ import { ApiService } from '../../services/api.service';
 })
 export class MainTableComponent implements OnChanges {
 
-  @Input() productosEntrantes?: any[];
+  @Input() productosEntrantes: any[] = [];
 
   productos: any[] = [];
-  selectedProductId!: number | null;
+  selectedProductId: number | null = null;
 
   constructor(private apiService: ApiService) {}
 
@@ -24,7 +24,8 @@ export class MainTableComponent implements OnChanges {
       const value = changes['productosEntrantes'].currentValue;
 
       if (Array.isArray(value)) {
-        this.productos = value;
+        // Copiamos el array para evitar mutaciones raras
+        this.productos = [...value];
         console.log('Productos actualizados:', this.productos);
       } else {
         this.productos = [];
@@ -38,9 +39,15 @@ export class MainTableComponent implements OnChanges {
 
   eliminarProducto(productId: number) {
     this.apiService.deleteProduct(productId).subscribe({
-      next: () => window.location.reload(),
-      error: (err) => console.error(err),
+      next: () => {
+        // Eliminamos el producto sin recargar la página
+        this.productos = this.productos.filter(
+          p => p.productoid !== productId
+        );
+      },
+      error: err => console.error(err),
     });
+
     this.selectedProductId = null;
   }
 

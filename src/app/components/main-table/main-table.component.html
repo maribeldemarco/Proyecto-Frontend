@@ -11,34 +11,45 @@
       <th scope="col">Eliminar</th>
     </tr>
   </thead>
+
   <tbody>
-    @for (producto of productos; track $index) {
-    <tr>
-      <td>{{ producto.productoid }}</td>
-      <td>{{ producto.nombre }}</td>
-      <td>{{ producto.marca }}</td>
-      <td>{{ producto.stock }}</td>
-      <td>{{ producto.perece }}</td>
-      <td>{{ producto.proveedor }}</td>
-      <td>{{ producto.vencimiento }}</td>
-      <td>
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          data-bs-toggle="modal"
-          data-bs-target="#deleteModal"
-          (click)="prepareDelete(producto.productoid)"
-        >
-         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#907f7f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-        </button>
-      </td>
-    </tr>
+    @for (producto of productos; track producto.productoid) {
+      <tr>
+        <td>{{ producto.productoid }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.marca }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.perece }}</td>
+        <td>{{ producto.proveedor }}</td>
+        <td>{{ producto.vencimiento }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteModal"
+            (click)="prepareDelete(producto.productoid)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="#907f7f"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+              <path d="M3 6h18" />
+              <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
+          </button>
+        </td>
+      </tr>
     }
   </tbody>
 </table>
 
-<app-delete-product
-  [productId]="selectedProductId!"
-  (onDelete)="eliminarProducto($event)"
-  (onCancel)="cancelarEliminacion()"
-></app-delete-product>
+@if (selectedProductId !== null) {
+  <app-delete-product
+    [productId]="selectedProductId"
+    (onDelete)="eliminarProducto($event)"
+    (onCancel)="cancelarEliminacion()"
+  ></app-delete-product>
+}
