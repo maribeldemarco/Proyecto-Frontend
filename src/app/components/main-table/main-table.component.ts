@@ -34,11 +34,15 @@ export class MainTableComponent implements OnChanges {
   }
 
 prepareDelete(productId: number) {
-  setTimeout(() => {
-    this.selectedProductId = productId;
-  }, 100);  
+  this.selectedProductId = productId;  // ← PRIMERO actualiza
+  setTimeout(() => {  // ← DESPUÉS abre
+    const modalEl = document.getElementById('deleteModal');
+    if (modalEl) {
+      const modal = new (window as any).bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }, 0);
 }
-
   eliminarProducto(productId: number) {
     this.apiService.deleteProduct(productId).subscribe({
       next: () => {
