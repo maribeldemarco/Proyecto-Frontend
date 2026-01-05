@@ -33,9 +33,11 @@ export class MainTableComponent implements OnChanges {
     }
   }
 
-  prepareDelete(productId: number) {
+ prepareDelete(productId: number) {
+  setTimeout(() => {
     this.selectedProductId = productId;
-  }
+  }, 10);
+}
 
   eliminarProducto(productId: number) {
     this.apiService.deleteProduct(productId).subscribe({
