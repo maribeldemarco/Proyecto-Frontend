@@ -24,11 +24,9 @@
         <td>{{ producto.vencimiento }}</td>
         <td>
           <button
-            type="button"
-            class="btn btn-outline-dark"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteModal"
-            (click)="prepareDelete(producto.productoid)"
+         type="button"
+        class="btn btn-outline-dark"
+        (click)="prepareDelete(producto.productoid)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
               viewBox="0 0 24 24" fill="none" stroke="#907f7f"
